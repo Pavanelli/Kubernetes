@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: gke-demo-app
-        image: gcr.io/SEU_PROJETO/gke-demo-app:latest
+        image: gcr.io/primal-outrider-456700-m9/gke-demo-app:latest
         ports:
         - containerPort: 8080
 ---
