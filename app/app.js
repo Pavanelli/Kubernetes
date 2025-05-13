@@ -13,70 +13,37 @@ app.get('/', (req, res) => {
       <style>
         body {
           margin: 0;
-          background: black;
-          color: #00ff00;
-          font-family: monospace;
-          overflow: hidden;
+          padding: 0;
+          font-family: Arial, sans-serif;
           display: flex;
-          align-items: center;
           justify-content: center;
+          align-items: center;
           height: 100vh;
-          flex-direction: column;
+          background: linear-gradient(135deg, #4e54c8, #8f94fb);
+          color: white;
         }
-
+        .container {
+          text-align: center;
+          background: rgba(0, 0, 0, 0.3);
+          padding: 40px;
+          border-radius: 15px;
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
         h1 {
-          z-index: 1;
-          text-shadow: 0 0 10px #00ff00;
-        }
-
-        .matrix {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          color: #00ff00;
-          opacity: 0.1;
-          font-size: 14px;
-          white-space: pre;
-          line-height: 14px;
-          pointer-events: none;
+          margin: 0;
+          font-size: 3em;
         }
       </style>
     </head>
     <body>
-      <div class="matrix" id="matrix"></div>
-      <h1>Hello Pavanelli</h1>
-      <script>
-        const matrix = document.getElementById('matrix');
-        const chars = '01アカサタナハマヤラワABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const rows = 40;
-        const cols = 80;
-
-        function getRandomChar() {
-          return chars[Math.floor(Math.random() * chars.length)];
-        }
-
-        function generateMatrixText() {
-          let text = '';
-          for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < cols; j++) {
-              text += Math.random() > 0.975 ? getRandomChar() : ' ';
-            }
-            text += '\\n';
-          }
-          return text;
-        }
-
-        setInterval(() => {
-          matrix.textContent = generateMatrixText();
-        }, 100);
-      </script>
+      <div class="container">
+        <h1>Hello Pavanelli</h1>
+      </div>
     </body>
     </html>
   `);
 });
 
 app.listen(PORT, () => {
-  console.log(\`Server running on port \${PORT}\`);
+  console.log(`Server running on port ${PORT}`);
 });
