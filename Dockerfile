@@ -1,17 +1,7 @@
-# Usa uma imagem base
-FROM node:14
-
-# Define o diretório de trabalho
-WORKDIR /app
-
-# Copia os arquivos de código para o container
-COPY . .
-
-# Instala as dependências
+FROM node:14-alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
 RUN npm install
-
-# Expõe a porta da aplicação
-EXPOSE 3000
-
-# Comando para rodar a aplicação
+COPY . .
+EXPOSE 8080
 CMD ["npm", "start"]
