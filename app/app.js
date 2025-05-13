@@ -11,39 +11,85 @@ app.get('/', (req, res) => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Hello Pavanelli</title>
       <style>
-        body {
+        html, body {
           margin: 0;
           padding: 0;
-          font-family: Arial, sans-serif;
+          height: 100%;
+          overflow: hidden;
+          font-family: 'Courier New', monospace;
+        }
+
+        canvas {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
+          z-index: -1;
+        }
+
+        .content {
+          position: relative;
+          z-index: 1;
+          height: 100vh;
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 100vh;
-          background: linear-gradient(135deg, #4e54c8, #8f94fb);
-          color: white;
-        }
-        .container {
-          text-align: center;
-          background: rgba(0, 0, 0, 0.3);
-          padding: 40px;
-          border-radius: 15px;
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        }
-        h1 {
-          margin: 0;
+          color: #00ff00;
           font-size: 3em;
+          text-shadow: 0 0 10px #00ff00;
         }
       </style>
     </head>
     <body>
-      <div class="container">
-        <h1>Hello Pavanelli</h1>
+      <canvas id="matrix"></canvas>
+      <div class="content">
+        Hello Pavanelli
       </div>
+      <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = 'アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+
+        const drops = Array.from({ length: columns }).fill(1);
+
+        function draw() {
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          ctx.fillStyle = '#0F0';
+          ctx.font = fontSize + 'px monospace';
+
+          for (let i = 0; i < drops.length; i++) {
+            const text = letters[Math.floor(Math.random() * letters.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+              drops[i] = 0;
+            }
+            drops[i]++;
+          }
+        }
+
+        setInterval(draw, 33);
+
+        window.addEventListener('resize', () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        });
+      </script>
     </body>
     </html>
   `);
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(\`Server running on port \${PORT}\`);
 });
